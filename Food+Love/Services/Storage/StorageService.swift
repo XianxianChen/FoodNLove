@@ -11,14 +11,21 @@ class StorageService {
 	private init(){
 		storage = Storage.storage()
 		storageRef = storage.reference()
-		imagesRef = storageRef.child("images")
+		profileImagesRef = storageRef.child("profile images")
 	}
 	static let manager = StorageService()
 
 	private var storage: Storage!
 	private var storageRef: StorageReference!
-	private var imagesRef: StorageReference!
+	private var profileImagesRef: StorageReference!
+    private var profileVideoRef: StorageReference!
+    private var chatImagesRef: StorageReference!
+    private var chatVideoRef: StorageReference!
 
 	public func getStorageRef() -> StorageReference { return storageRef }
-	public func getImagesRef() -> StorageReference { return imagesRef }
+	public func getProfileImagesRef() -> StorageReference { return profileImagesRef }
+    public func getProfileVideoRef() -> StorageReference { return profileVideoRef }
+    public func getChatImagesRef() -> StorageReference { return chatImagesRef }
+    public func getChatVideoRef() -> StorageReference { return chatVideoRef }
+    
 }

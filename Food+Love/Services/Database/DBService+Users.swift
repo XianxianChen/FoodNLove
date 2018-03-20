@@ -11,10 +11,10 @@ import CoreData
 extension DBService {
 
 	public func addUser() {
-		let user = DBService.manager.getUsers().child((AuthUserService.getCurrentUser()?.uid)!)
-		user.setValue(["name"     : AuthUserService.getCurrentUser()?.displayName,
-									 "email"		: AuthUserService.getCurrentUser()?.email,
-									 "profileImageUrl": AuthUserService.getCurrentUser()?.photoURL])
+		let user = DBService.manager.getUsers().child((AuthUserService.manager.getCurrentUser()?.uid)!)
+		user.setValue(["name"     : AuthUserService.manager.getCurrentUser()?.displayName,
+									 "email"		: AuthUserService.manager.getCurrentUser()?.email,
+									 "profileImageUrl": AuthUserService.manager.getCurrentUser()?.photoURL])
 			{ (error, dbRef) in
 				if let error = error { print("addUser error: \(error.localizedDescription)")}
 				else { print("user successfully added to database reference: \(dbRef)")}
@@ -22,10 +22,10 @@ extension DBService {
 	}
 
 	public func addUser(name: String, email: String, profileImageUrl: String) {
-		let user = DBService.manager.getUsers().child((AuthUserService.getCurrentUser()?.uid)!)
-		user.setValue(["name"     : AuthUserService.getCurrentUser()?.displayName,
-									 "email"		: AuthUserService.getCurrentUser()?.email,
-									 "profileImageUrl": AuthUserService.getCurrentUser()?.photoURL])
+		let user = DBService.manager.getUsers().child((AuthUserService.manager.getCurrentUser()?.uid)!)
+		user.setValue(["name"     : AuthUserService.manager.getCurrentUser()?.displayName,
+									 "email"		: AuthUserService.manager.getCurrentUser()?.email,
+									 "profileImageUrl": AuthUserService.manager.getCurrentUser()?.photoURL])
 		{ (error, dbRef) in
 			if let error = error { print("addUser error: \(error.localizedDescription)")}
 			else { print("user successfully added to database reference: \(dbRef)")}

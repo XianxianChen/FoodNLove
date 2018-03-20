@@ -20,56 +20,75 @@ import Firebase
     //sign in delegate protocols
     @objc optional func didFailSignIn(_ userService: AuthUserService, error: Error)
     @objc optional func didSignIn(_ userService: AuthUserService, user: User)
+    @objc optional func didFailVerifyEmail()
 }
+
 
 class AuthUserService: NSObject {
     weak var delegate: AuthUserServiceDelegate?
-
-    public static func getCurrentUser() -> User?{
-			return Auth.auth().currentUser
+    static let manager = AuthUserService()
+    private override init() {}
+    
+    func getCurrentUser() -> User? {
+        return Auth.auth().currentUser
     }
-	
-	public func createUser(name: String, email: String, password: String) {
-        Auth.auth().createUser(withEmail: email, password: password){(user, error) in
-            if let error = error {self.delegate?.didFailCreatingUser?(self, error: error)} //inform delegate of error
-						else if let user = user {
-                //update Authenticated user displayName with their email prefix
-
-								//create change Request
-                let changeRequest = user.createProfileChangeRequest()
-								//add things to change in change request
-                changeRequest.displayName = name
-//								changeRequest.photoURL = URL(string: "http://santetotal.com/wp-content/uploads/2014/05/default-user-image-0f2a2adaf9515a88fb9b1a911d9f46bb-60x60.png")
-
-							 //commit change request
-                changeRequest.commitChanges(completion: {(error) in
-                    if let error = error {print("changeRequest error: \(error)")}
-										else {
-                        print("changeRequest was successful for username: \(name)")
-												DBService.manager.addUser() //add user to Database
-                        self.delegate?.didCreateUser?(self, user: user) //let delegate know
-                    }
-                })
+    
+    func loginUser(email: String, password: String, completionHandler: @escaping  (User?, Error?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                completionHandler(nil, error)
+            }
+            if let user = user {
+                completionHandler(user, nil)
             }
         }
     }
-
-
-    public func signOut() {
-        do{
+    
+    func signOut() {
+        do {
             try Auth.auth().signOut()
-            delegate?.didSignOut?(self) //inform delegate of successful sign out
         } catch {
-            delegate?.didFailSigningOut!(self, error: error) //inform delegate of error
+            print("Signing out error: \(error)")
+            self.delegate?.didFailSigningOut?(self, error: error)
         }
     }
-
-
-    public func signIn(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) {(user, error) in
-            if let error = error { self.delegate?.didFailSignIn?(self, error: error) } //inform delegate of signin error
-						else if let user = user { self.delegate?.didSignIn?(self, user: user) } //inform delegate of signin success
+    
+    func creatNewAccoutUsingEmail(name: String, email: String, password: String, completionHandler: @escaping (User?, Error?) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                //  print("create new account error: \(error)")
+                completionHandler(nil, error)
+            }
+            if let user = user {
+                user.sendEmailVerification(completion: { (error) in
+                    if let error = error {
+                        print("failing sending password reset email error: \(error.localizedDescription)")
+                    }
+                })
+                let changeRequest = user.createProfileChangeRequest()
+                changeRequest.displayName = name
+                changeRequest.commitChanges(completion: { (error) in
+                    if let changeError = error {
+                        print("commit change request error: \(changeError)")
+                    }
+                })
+                let userProfileRef = Database.database().reference().child("users")
+                // let userProfile = UserProfile(email: email, userID: user.uid)
+                let userProfile = UserProfile(name: name, email: email, userId: user.uid, gender: "", genderPreference: "", bio: "", dob: "", address: "", city: "", zipcode: 10001, foodPreference: [:], favoriteRes: nil, traits: [:], profileImageUrl: "", profileVideoUrl: "")
+                userProfileRef.childByAutoId().setValue(userProfile.toJson())
+                completionHandler(user, nil)
+            }
         }
+    }
+    
+    func resetPassword(email: String) {
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            if let error = error {
+            print("failing sending password reset email error: \(error.localizedDescription)")
+            }
+            
+        }
+        
     }
     
     

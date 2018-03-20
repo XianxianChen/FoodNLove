@@ -18,7 +18,7 @@ class SignupVC: UIViewController {
 
 	var messagesController: MatchesVC?
 	var profileImageView: UIImageView!
-	private var authUserService = AuthUserService()
+	//private var authUserService = AuthUserService().m
 
 
 	@IBAction func signup(_ sender: UIButton) {
@@ -100,7 +100,9 @@ class SignupVC: UIViewController {
 			showAlert(title: "Come on, really!? No spaces allowed!", message: nil)
 			return
 		}
-		authUserService.createUser(name: nameText, email: emailText, password: passwordText)
+	//	authUserService.createUser(name: nameText, email: emailText, password: passwordText)
+        AuthUserService.manager.creatNewAccoutUsingEmail(name: nameText, email: emailText, password: passwordText) { (user, error) in
+        }
 	}
 
 }
