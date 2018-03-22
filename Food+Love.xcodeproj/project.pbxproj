@@ -35,6 +35,16 @@
 		81BE0A04205DF8B90099215D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0A02205DF8B80099215D /* Message.swift */; };
 		81BE0A0D205DF8DF0099215D /* MatchesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0A0A205DF8DE0099215D /* MatchesVC.swift */; };
 		81BE0A0F205DF8DF0099215D /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0A0C205DF8DE0099215D /* ChatVC.swift */; };
+		81C0E2752064267300779287 /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E2702064267300779287 /* DiscoverVC.swift */; };
+		81C0E2762064267300779287 /* MainFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E2712064267300779287 /* MainFeedViewController.swift */; };
+		81C0E2772064267300779287 /* OtherUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E2722064267300779287 /* OtherUserProfileVC.swift */; };
+		81C0E2782064267300779287 /* AdmirersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E2732064267300779287 /* AdmirersVC.swift */; };
+		81C0E2792064267300779287 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E2742064267300779287 /* ProfileVC.swift */; };
+		81C0E27B206426A100779287 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C0E27A206426A100779287 /* Feed.storyboard */; };
+		81C0E2812064274200779287 /* DiscoverCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E27E2064274200779287 /* DiscoverCollectionViewCell.swift */; };
+		81C0E2822064274200779287 /* AdmirerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E27F2064274200779287 /* AdmirerCollectionViewCell.swift */; };
+		81C0E2832064274200779287 /* FoodTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E2802064274200779287 /* FoodTagCollectionViewCell.swift */; };
+		81C0E2862064276700779287 /* UserTraitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0E2852064276700779287 /* UserTraitCollectionViewCell.swift */; };
 		81D26F0620598AF800BEBC47 /* FSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D26F0520598AF800BEBC47 /* FSPhoto.swift */; };
 		81D26F0A20598B7000BEBC47 /* FSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D26F0920598B7000BEBC47 /* FSSearch.swift */; };
 		81D26F0E20598C3300BEBC47 /* YelpSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D26F0D20598C3300BEBC47 /* YelpSearch.swift */; };
@@ -91,6 +101,16 @@
 		81BE0A02205DF8B80099215D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		81BE0A0A205DF8DE0099215D /* MatchesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatchesVC.swift; path = "Food+Love/Controllers/Main/MatchesVC.swift"; sourceTree = SOURCE_ROOT; };
 		81BE0A0C205DF8DE0099215D /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatVC.swift; path = "Food+Love/Controllers/Main/ChatVC.swift"; sourceTree = SOURCE_ROOT; };
+		81C0E2702064267300779287 /* DiscoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
+		81C0E2712064267300779287 /* MainFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFeedViewController.swift; sourceTree = "<group>"; };
+		81C0E2722064267300779287 /* OtherUserProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherUserProfileVC.swift; sourceTree = "<group>"; };
+		81C0E2732064267300779287 /* AdmirersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdmirersVC.swift; sourceTree = "<group>"; };
+		81C0E2742064267300779287 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		81C0E27A206426A100779287 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
+		81C0E27E2064274200779287 /* DiscoverCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverCollectionViewCell.swift; sourceTree = "<group>"; };
+		81C0E27F2064274200779287 /* AdmirerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdmirerCollectionViewCell.swift; sourceTree = "<group>"; };
+		81C0E2802064274200779287 /* FoodTagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		81C0E2852064276700779287 /* UserTraitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTraitCollectionViewCell.swift; sourceTree = "<group>"; };
 		81D26F0520598AF800BEBC47 /* FSPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPhoto.swift; sourceTree = "<group>"; };
 		81D26F0920598B7000BEBC47 /* FSSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSearch.swift; sourceTree = "<group>"; };
 		81D26F0D20598C3300BEBC47 /* YelpSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpSearch.swift; sourceTree = "<group>"; };
@@ -144,27 +164,6 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		811E24CE20636B4100E7CAF5 /* Discover */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Discover;
-			sourceTree = "<group>";
-		};
-		811E24CF20636B5B00E7CAF5 /* Dates */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Dates;
-			sourceTree = "<group>";
-		};
-		811E24D020636B6600E7CAF5 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
 		813E323B205961BE0076A98F /* Videos */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +208,7 @@
 		817F9B58205863B90061E1B6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				81C0E26F2064261800779287 /* Feed VC */,
 				81BE09FA205DCD740099215D /* Startup */,
 				81E615F62060E13A00347CDA /* Main */,
 			);
@@ -218,6 +218,8 @@
 		817F9B59205863C50061E1B6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				81C0E2842064274800779287 /* Profile Cells */,
+				81C0E27D2064271C00779287 /* MainFeed Cells */,
 				81F4F8E72063B9C8008D716B /* Welcome Views */,
 				81F4F8E82063B9D8008D716B /* Matches-Chat Views */,
 			);
@@ -267,11 +269,9 @@
 		817F9B5D2058646E0061E1B6 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				81C0E27C206426C500779287 /* Feed */,
 				811E24CD20636B3200E7CAF5 /* Main */,
 				811E24CC20636B2500E7CAF5 /* LaunchScreen */,
-				811E24CE20636B4100E7CAF5 /* Discover */,
-				811E24CF20636B5B00E7CAF5 /* Dates */,
-				811E24D020636B6600E7CAF5 /* Profile */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -285,6 +285,44 @@
 				817F9B662058B8060061E1B6 /* SetupProfileVC.swift */,
 			);
 			path = Startup;
+			sourceTree = "<group>";
+		};
+		81C0E26F2064261800779287 /* Feed VC */ = {
+			isa = PBXGroup;
+			children = (
+				81C0E2732064267300779287 /* AdmirersVC.swift */,
+				81C0E2702064267300779287 /* DiscoverVC.swift */,
+				81C0E2712064267300779287 /* MainFeedViewController.swift */,
+				81C0E2722064267300779287 /* OtherUserProfileVC.swift */,
+				81C0E2742064267300779287 /* ProfileVC.swift */,
+			);
+			path = "Feed VC";
+			sourceTree = "<group>";
+		};
+		81C0E27C206426C500779287 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				81C0E27A206426A100779287 /* Feed.storyboard */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		81C0E27D2064271C00779287 /* MainFeed Cells */ = {
+			isa = PBXGroup;
+			children = (
+				81C0E27F2064274200779287 /* AdmirerCollectionViewCell.swift */,
+				81C0E27E2064274200779287 /* DiscoverCollectionViewCell.swift */,
+				81C0E2802064274200779287 /* FoodTagCollectionViewCell.swift */,
+			);
+			path = "MainFeed Cells";
+			sourceTree = "<group>";
+		};
+		81C0E2842064274800779287 /* Profile Cells */ = {
+			isa = PBXGroup;
+			children = (
+				81C0E2852064276700779287 /* UserTraitCollectionViewCell.swift */,
+			);
+			path = "Profile Cells";
 			sourceTree = "<group>";
 		};
 		81E615E82060C1A800347CDA /* Restaurant Search */ = {
@@ -462,6 +500,7 @@
 				81F633FD206026A3003E2A82 /* couple.mp4 in Resources */,
 				81BE09FC205DCE340099215D /* Main.storyboard in Resources */,
 				815B2B41205C2FD6005C1C32 /* Theme.xcassets in Resources */,
+				81C0E27B206426A100779287 /* Feed.storyboard in Resources */,
 				81E954C3205E3289004036D5 /* flowers.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,7 +551,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Food+Love/Pods-Food+Love-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -520,15 +558,11 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Toucan/Toucan.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -536,9 +570,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toucan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -554,6 +585,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81C0E2782064267300779287 /* AdmirersVC.swift in Sources */,
 				81E615F32060C3AA00347CDA /* UIViewX.swift in Sources */,
 				819934AE2061CD440075696F /* MatchesCell.swift in Sources */,
 				811E24CB20634BDF00E7CAF5 /* ConversationCell.swift in Sources */,
@@ -563,6 +595,7 @@
 				81D26F1F20598DAD00BEBC47 /* NetworkHelper.swift in Sources */,
 				817F9B7B2058B9BA0061E1B6 /* ProfileVC.swift in Sources */,
 				81D26F1D20598D9200BEBC47 /* ImageService.swift in Sources */,
+				81C0E2832064274200779287 /* FoodTagCollectionViewCell.swift in Sources */,
 				81A7B0752063368200566323 /* ChatCell.swift in Sources */,
 				817F9B612058B7B50061E1B6 /* WelcomeVC.swift in Sources */,
 				817F9B692058B81C0061E1B6 /* DiscoverVC.swift in Sources */,
@@ -570,9 +603,11 @@
 				81D26F0620598AF800BEBC47 /* FSPhoto.swift in Sources */,
 				817F9B652058B7F20061E1B6 /* SignupVC.swift in Sources */,
 				81D26F0A20598B7000BEBC47 /* FSSearch.swift in Sources */,
+				81C0E2822064274200779287 /* AdmirerCollectionViewCell.swift in Sources */,
 				81D26F1220598C9700BEBC47 /* FileManager.swift in Sources */,
 				817F9B752058B8F70061E1B6 /* DatesVC.swift in Sources */,
 				8106D84F205D665B00F6EB3E /* WelcomeSlide.swift in Sources */,
+				81C0E2752064267300779287 /* DiscoverVC.swift in Sources */,
 				81D26F1920598D3000BEBC47 /* YelpAPIKeys.swift in Sources */,
 				815B2B3F205C2F92005C1C32 /* Extensions.swift in Sources */,
 				81E615E52060B9D800347CDA /* UIButtonX.swift in Sources */,
@@ -582,14 +617,19 @@
 				81D26F1B20598D6300BEBC47 /* LocationServices.swift in Sources */,
 				81E954BB205E1CEA004036D5 /* StorageService.swift in Sources */,
 				81E954BE205E1CEA004036D5 /* DBService.swift in Sources */,
+				81C0E2792064267300779287 /* ProfileVC.swift in Sources */,
 				81BE0A04205DF8B90099215D /* Message.swift in Sources */,
 				81E954BD205E1CEA004036D5 /* AuthUserService.swift in Sources */,
 				817F9B47205863B10061E1B6 /* AppDelegate.swift in Sources */,
+				81C0E2862064276700779287 /* UserTraitCollectionViewCell.swift in Sources */,
 				81D26F0E20598C3300BEBC47 /* YelpSearch.swift in Sources */,
 				817F9B632058B7D70061E1B6 /* LoginVC.swift in Sources */,
 				81E615F82060E1C400347CDA /* WelcomeLogoSlide.swift in Sources */,
+				81C0E2812064274200779287 /* DiscoverCollectionViewCell.swift in Sources */,
 				81BE0A00205DDD5E0099215D /* UITextFieldX.swift in Sources */,
 				817F9B732058B8E40061E1B6 /* VideoVC.swift in Sources */,
+				81C0E2762064267300779287 /* MainFeedViewController.swift in Sources */,
+				81C0E2772064267300779287 /* OtherUserProfileVC.swift in Sources */,
 				81BE0A0D205DF8DF0099215D /* MatchesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
