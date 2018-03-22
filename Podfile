@@ -18,4 +18,7 @@ target 'Food+Love' do
     pod 'SnapKit'
     pod 'Kingfisher'
     pod 'Toucan'
+    pod 'VegaScrollFlowLayout'
+    pod 'Parchment'
+    pod 'FSPagerView’
 end

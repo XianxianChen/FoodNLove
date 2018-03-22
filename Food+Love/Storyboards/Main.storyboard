@@ -1104,12 +1104,6 @@
         <namedColor name="Buttoncolor">
             <color red="1" green="0.1019999981" blue="0.074000000950000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Buttoncolor">
-            <color red="1" green="0.10199999809265137" blue="0.074000000953674316" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Buttoncolor">
-            <color red="1" green="0.10199999809265137" blue="0.074000000953674316" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Color">
             <color red="1" green="0.76899999380111694" blue="0.41299998760223389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

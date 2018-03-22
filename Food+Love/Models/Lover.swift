@@ -14,6 +14,13 @@ class Lover: NSObject {
 		self.email = dictionary["email"]
 		self.profileImageUrl = dictionary["profileImageUrl"]
 	}
+    
+    init(id: String, name: String, email: String, profileImageUrl: String){
+        self.id = id
+        self.name = name
+        self.email = email
+        self.profileImageUrl = profileImageUrl
+    }
 }
 
 
