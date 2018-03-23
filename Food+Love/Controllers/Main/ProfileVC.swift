@@ -30,17 +30,17 @@ class ProfileVC: UIViewController {
             self.userPicsPagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
         }
     }
-    
-    
+
+
     
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
         let alertView = UIAlertController(title: "Are you sure you want to Logout?", message: nil, preferredStyle: .alert)
         let yesOption = UIAlertAction(title: "Yes", style: .destructive) { (alertAction) in
             do {
                 try Auth.auth().signOut()
-                let welcomeVC = WelcomeVC()
-                let welcomeNavCon = UINavigationController(rootViewController: welcomeVC)
-                self.present(welcomeNavCon, animated: true)
+                if let welcomeController = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeVC")  {
+                    self.navigationController?.setViewControllers([welcomeController], animated: true)
+                }
             }
             catch { print("Error signing out: \(error)") }
         }
@@ -83,6 +83,7 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
         configureNavBar()
         //setUpPageControl()
+        self.parent?.navigationController?.navigationBar.isHidden = true
         
         
     }
@@ -96,7 +97,7 @@ class ProfileVC: UIViewController {
         let uploadButton = UIBarButtonItem(title: "Upload", style: .plain, target: self, action: #selector(uploadButtonClicked))
         self.navigationItem.leftBarButtonItem = uploadButton
         let logOutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logoutPressed(_:)))
-        self.navigationItem.rightBarButtonItem  = logOutButton
+        self.navigationController?.navigationItem.rightBarButtonItem  = logOutButton
     }
     
     //MARK: Page Control

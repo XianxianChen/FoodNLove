@@ -23,8 +23,9 @@ class SignupVC: UIViewController {
 
 	@IBAction func signup(_ sender: UIButton) {
 		//handleRegister()
-		let setupProfileVC = SetupProfileVC()
-		self.navigationController?.pushViewController(setupProfileVC, animated: true)
+//        let setupProfileVC = SetupProfileVC()
+//        self.navigationController?.pushViewController(setupProfileVC, animated: true)
+
 	}
 
 	override func viewDidLoad() {

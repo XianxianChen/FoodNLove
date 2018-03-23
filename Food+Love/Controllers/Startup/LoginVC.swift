@@ -80,13 +80,11 @@ class LoginVC: UIViewController {
             
             //successfully logged in our user
             self.messagesController?.fetchUserAndSetupNavBarTitle()
-            let feedStoryboard = UIStoryboard(name: "Feed", bundle: nil)
+   
+       
 
-            if let mainController = feedStoryboard.instantiateViewController(withIdentifier: "MainFeedViewController") as? MainFeedViewController {
-                self.navigationController?.pushViewController(mainController, animated: true)
-                //            let messageVC = UIStoryboard.
-                //            self.navigationController?.pushViewController(messageVC, animated: true)
-//                self.dismiss(animated: true, completion: nil)
+            if let mainController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")  {
+                self.navigationController?.setViewControllers([mainController], animated: true)
             }
         })
         

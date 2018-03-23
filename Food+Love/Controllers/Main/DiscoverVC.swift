@@ -15,28 +15,33 @@ class DiscoverVC: UIViewController {
     @IBOutlet weak var discoverCV: UICollectionView!
     @IBOutlet var foodTagCV: UICollectionView!
     
-//    var lovers = [Lover] {
-//        didSet{
-//            discoverCV.reloadData()
-//        }
-//    }
-    
+ 
     //Dummy Data
     var lover1 = Lover(id: "0001", name: "susan", email: "susan@gmail.com", profileImageUrl: "")
     var lover2 = Lover(id: "0002", name: "jeff", email: "jeff@gmail.com", profileImageUrl: "")
     var lover3 = Lover(id: "0003", name: "li", email: "li@gmail.com", profileImageUrl: "")
-    var lovers = [Lover]()
-    
-    
+    var lovers = [Lover]() {
+        didSet{
+            discoverCV.reloadData()
+        }
+    }
+    var foodTags = [String]() {
+        didSet {
+            foodTagCV.reloadData()
+        }
+    }
 
+    // view lifecycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        loadLovers()
+        loadFoodTags()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setUpDiscoverCV()
+        setUpDiscoverCV()
         setUpBackground()
-        //setUpTagCV()
-        lovers = [lover1, lover2, lover3]
-       
-
+        setUpTagCV()
     }
     
 
@@ -45,7 +50,6 @@ class DiscoverVC: UIViewController {
         discoverCV.delegate = self
         foodTagCV.dataSource = self
         foodTagCV.delegate = self
-//        discoverCV.register(DiscoverCollectionViewCell.self, forCellWithReuseIdentifier: "DiscoverCell")
         
         let screenSize = UIScreen.main.bounds.size
         let cellWidth = floor(screenSize.width * cellSpacing)
@@ -67,7 +71,7 @@ class DiscoverVC: UIViewController {
     }
     
     private func setUpBackground() {
-        
+
         let backgroundImage = UIImageView()
         backgroundImage.image = #imageLiteral(resourceName: "discoverBG")
         backgroundImage.contentMode = .scaleToFill
@@ -82,9 +86,16 @@ class DiscoverVC: UIViewController {
     
     
     
-    private func loadData() {
+    private func loadLovers() {
         //Load data here
+        lovers = [lover1, lover2, lover3]
+        
     }
+    
+    private func loadFoodTags(){
+        foodTags = ["Thai", "Japanese", "Tacos"]
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -108,18 +119,22 @@ extension DiscoverVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == foodTagCV {
-            return 10
+            return foodTags.isEmpty ? 1 : foodTags.count
         }
-        return 5
+        return lovers.isEmpty ? 1 : lovers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == foodTagCV {
             let cell = foodTagCV.dequeueReusableCell(withReuseIdentifier: "FoodTagCell", for: indexPath) as! FoodTagCollectionViewCell
+            let tag = foodTags[indexPath.row]
+            cell.foodTagLabel.text = tag
             return cell
         }
         
         let cell = discoverCV.dequeueReusableCell(withReuseIdentifier: "DiscoverCell", for: indexPath) as! DiscoverCollectionViewCell
+        let lover = lovers[indexPath.row]
+        cell.userNameAgeLabel.text = lover.name
         return cell
     }
     

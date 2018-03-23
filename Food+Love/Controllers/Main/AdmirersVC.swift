@@ -10,19 +10,20 @@ import VegaScrollFlowLayout
 class AdmirersVC: UIViewController {
     
     @IBOutlet weak var admirerCV: UICollectionView!
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-       // setUpCollectionViewLayout()
+    
+    var admirers = ["Mary", "Philomena", "Raven", "Tessa", "Julie"]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpCollectionViewLayout()
         
-
-
-	}
-    
-    private func loadData() {
-    
+        
+        
     }
     
+    private func loadData() {
+        
+    }
     
     func setUpCollectionViewLayout() {
         let layout = VegaScrollFlowLayout()
@@ -35,24 +36,25 @@ class AdmirersVC: UIViewController {
         layout.isPagingEnabled = false
         layout.springHardness = 200
         admirerCV.collectionViewLayout.invalidateLayout()
-        
     }
-
+    
 }
 
 
 extension AdmirersVC: UICollectionViewDataSource {
-//    
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
+    //
+    //    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    //        return 1
+    //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return admirers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = admirerCV.dequeueReusableCell(withReuseIdentifier: "AdmirerCell", for: indexPath) as! AdmirerCollectionViewCell
+        let admirer = admirers[indexPath.row]
+        cell.admirerNameLabel.text = admirer
         return cell
     }
     
@@ -62,8 +64,8 @@ extension AdmirersVC: UICollectionViewDataSource {
 
 extension AdmirersVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let feedStoryBoards = UIStoryboard(name: "Feed", bundle: nil)
-//    
-//         self.navigationController?.pushViewController(profileVC, animated: true)
+        let storyboard = UIStoryboard(name: "Feed", bundle: nil)
+        let profileVC = storyboard.instantiateViewController(withIdentifier: "OtherUserProfileVC") as! OtherUserProfileVC
+        self.navigationController?.pushViewController(profileVC, animated: true)
     }
 }

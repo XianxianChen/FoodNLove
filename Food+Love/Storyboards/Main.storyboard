@@ -168,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LyT-7Y-R1c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5477.6000000000004" y="-1012.4437781109445"/>
+            <point key="canvasLocation" x="5476" y="-1792"/>
         </scene>
         <!--Dates-->
         <scene sceneID="aNW-Ow-4gY">
@@ -248,13 +248,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hw8-sj-ci1">
-                                <rect key="frame" x="0.0" y="64" width="375" height="267"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="267"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user3" translatesAutoresizingMaskIntoConstraints="NO" id="AgR-N1-4VM">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="266"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="267"/>
                                     </imageView>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="IOf-94-kj7">
-                                        <rect key="frame" x="168" y="221" width="39" height="37"/>
+                                        <rect key="frame" x="168" y="222" width="39" height="37"/>
                                     </pageControl>
                                 </subviews>
                                 <constraints>
@@ -269,7 +269,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6c4-mO-HzI">
-                                <rect key="frame" x="0.0" y="331" width="375" height="66.5"/>
+                                <rect key="frame" x="0.0" y="287" width="375" height="66.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sean, 26" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pUI-KU-ulj">
                                         <rect key="frame" x="8" y="0.0" width="77" height="21"/>
@@ -282,13 +282,13 @@
                                 <color key="backgroundColor" name="Bg"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Short bio about yourself and what you are looking for" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Cyo-6D-L37">
-                                <rect key="frame" x="0.0" y="398" width="375" height="66.5"/>
+                                <rect key="frame" x="0.0" y="354" width="375" height="66.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ClJ-kb-Kj2">
-                                <rect key="frame" x="0.0" y="464.5" width="375" height="153.5"/>
+                                <rect key="frame" x="0.0" y="420.5" width="375" height="246.5"/>
                                 <color key="backgroundColor" red="0.99953407049999998" green="0.57288567999999995" blue="0.3456197654" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -324,18 +324,17 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="Je6-Ps-JDm">
                             <connections>
-                                <action selector="logoutPressed:" destination="PHp-g3-0K5" id="ptj-jn-anE"/>
+                                <action selector="logoutPressed:" destination="PHp-g3-0K5" id="d8s-nP-fxX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="logoutButton" destination="Je6-Ps-JDm" id="qvd-P2-s5T"/>
                         <outlet property="settingsButton" destination="UFk-1R-taD" id="762-aF-kVa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2h-9u-0rY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5477.6000000000004" y="1648.4257871064469"/>
+            <point key="canvasLocation" x="5594" y="2497"/>
         </scene>
         <!--Admirers-->
         <scene sceneID="fAh-Lh-RMw">
@@ -558,7 +557,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="loginInUser" destination="IFv-pl-pZp" eventType="touchUpInside" id="E0I-eM-n3g"/>
-                                    <segue destination="MqU-kz-Ysh" kind="presentation" id="u6S-9C-ZKy"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cook" translatesAutoresizingMaskIntoConstraints="NO" id="XPi-NG-Djm">
@@ -698,7 +696,7 @@
         <!--Navigation Controller-->
         <scene sceneID="E9X-5x-LgX">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wMe-1L-4g9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="WelcomeNavVC" automaticallyAdjustsScrollViewInsets="NO" id="wMe-1L-4g9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="byD-dH-hLT">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -716,7 +714,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="9Ks-PX-ooS">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="MqU-kz-Ysh" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="MqU-kz-Ysh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wjK-MN-a1s">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -988,12 +986,22 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="32n-Oi-luj" kind="relationship" relationship="rootViewController" id="jxq-V5-FyQ"/>
+                        <segue destination="DJF-jJ-2aV" kind="relationship" relationship="rootViewController" id="psu-Og-IYE"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kpO-ld-MSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4782" y="-1011"/>
+        </scene>
+        <!--MainFeedViewController-->
+        <scene sceneID="8R9-Cc-Sbk">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Feed" referencedIdentifier="MainFeedViewController" id="DJF-jJ-2aV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="JBf-GG-eP2"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7x6-xJ-uYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5532" y="-1012"/>
         </scene>
         <!--Matches-->
         <scene sceneID="z32-x3-s5W">
@@ -1025,9 +1033,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="AoX-SQ-yAz" kind="relationship" relationship="rootViewController" id="ixt-Ts-22G"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PD2-7G-ZIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1055,7 +1060,7 @@
         <!--Profile-->
         <scene sceneID="Qqk-em-1v8">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qd8-Le-cFH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNavVC" automaticallyAdjustsScrollViewInsets="NO" id="qd8-Le-cFH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="profile" selectedImage="profile_filled" id="bc9-Qu-2bE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w7t-78-CPy">
@@ -1064,12 +1069,22 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="PHp-g3-0K5" kind="relationship" relationship="rootViewController" id="hyi-fu-pmS"/>
+                        <segue destination="O6K-bp-26o" kind="relationship" relationship="rootViewController" id="o7s-bC-vx9"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bdn-AZ-LLY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4780.8000000000002" y="1648.5221674876848"/>
+            <point key="canvasLocation" x="3897" y="1648"/>
+        </scene>
+        <!--ProfileVC-->
+        <scene sceneID="3nP-Ar-mxW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Feed" referencedIdentifier="ProfileVC" id="O6K-bp-26o" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="2Ni-BH-CW9"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ndy-07-F0u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5532" y="1648"/>
         </scene>
     </scenes>
     <resources>
