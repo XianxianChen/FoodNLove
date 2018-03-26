@@ -21,7 +21,7 @@ extension Dictionary {
 	}
 }
 
-// Image Ca
+// Image Cache
 let imageCache = NSCache<AnyObject, AnyObject>()
 
 
@@ -41,6 +41,14 @@ extension UIColor {
 	}
 }
 
+// Extend UIViewController
+extension UIViewController {
+	static func storyboardInstance(storyboardName: String, viewControllerIdentifiier: String) -> UIViewController {
+		let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+		let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifiier)
+		return viewController
+	}
+}
 
 // Extend UITEXTFIELD
 extension UITextField {
@@ -79,12 +87,12 @@ extension UIImageView {
 			self.image = cachedImage
 			return
 		}
-		//otherwise fire off a new download
-		let url = URL(string: urlString)
-		URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+		//otherwise download
+		guard let url = URL(string: urlString) else {return}
+		URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
 			//download hit an error so lets return out
 			if error != nil {
-				print(error ?? "")
+				print(error)
 				return
 			}
 			DispatchQueue.main.async(execute: {

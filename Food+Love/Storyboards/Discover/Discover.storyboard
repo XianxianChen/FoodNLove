@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Fgw-ef-er0">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Discover-->
+        <scene sceneID="MSR-Ho-5bS">
+            <objects>
+                <viewController storyboardIdentifier="FeedVC" title="Discover" id="Fgw-ef-er0" customClass="FeedVC" customModule="Food_Love" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yvn-ks-5UI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="mXK-1j-sRT"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Discover" id="DHh-tD-ojO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bGc-Gl-D4y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5449" y="-891"/>
+        </scene>
+        <!--OtherUserProfileVC-->
+        <scene sceneID="Woa-IY-9Pc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="OtherUserProfileVC" id="2dG-1w-nVf" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jon-au-FfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7678" y="-891"/>
+        </scene>
+        <!--Discover-->
+        <scene sceneID="6Wd-or-p16">
+            <objects>
+                <viewController storyboardIdentifier="DiscoverVC" title="Discover" id="ZSE-e8-922" customClass="DiscoverVC" customModule="Food_Love" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="V2c-t0-pPD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w6B-vh-78z">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5wv-P1-YkL">
+                                    <size key="itemSize" width="248" height="287"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiscoverCell" id="l7T-mI-kXF">
+                                        <rect key="frame" x="63.5" y="0.0" width="248" height="287"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="248" height="287"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="w6B-vh-78z" firstAttribute="leading" secondItem="nNI-wL-V4A" secondAttribute="leading" id="LgL-BE-ehG"/>
+                            <constraint firstItem="nNI-wL-V4A" firstAttribute="bottom" secondItem="w6B-vh-78z" secondAttribute="bottom" id="a9A-oe-XqA"/>
+                            <constraint firstItem="w6B-vh-78z" firstAttribute="top" secondItem="nNI-wL-V4A" secondAttribute="top" id="kjo-TN-y2J"/>
+                            <constraint firstItem="nNI-wL-V4A" firstAttribute="trailing" secondItem="w6B-vh-78z" secondAttribute="trailing" id="lqP-0M-HIj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nNI-wL-V4A"/>
+                    </view>
+                    <connections>
+                        <outlet property="discoverCV" destination="w6B-vh-78z" id="PYb-Jh-kYk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p0H-xw-xcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6149.6000000000004" y="-888.30584707646187"/>
+        </scene>
+        <!--Admirers-->
+        <scene sceneID="204-fZ-zxJ">
+            <objects>
+                <viewController storyboardIdentifier="AdmirersVC" title="Admirers" id="zzL-7W-owK" customClass="AdmirersVC" customModule="Food_Love" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SH9-sa-5OY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-DK-aiu">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ye5-xB-yiZ">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AdmirerCell" id="GV4-3V-45S">
+                                        <rect key="frame" x="0.0" y="50" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eAT-NI-h0s">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ayr-DK-aiu" firstAttribute="top" secondItem="33S-vR-TQn" secondAttribute="top" id="Dux-dd-05e"/>
+                            <constraint firstItem="ayr-DK-aiu" firstAttribute="leading" secondItem="33S-vR-TQn" secondAttribute="leading" id="aix-Kb-dRj"/>
+                            <constraint firstItem="ayr-DK-aiu" firstAttribute="trailing" secondItem="33S-vR-TQn" secondAttribute="trailing" id="nof-sL-WrB"/>
+                            <constraint firstItem="ayr-DK-aiu" firstAttribute="bottom" secondItem="33S-vR-TQn" secondAttribute="bottom" id="oqy-wN-hOV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="33S-vR-TQn"/>
+                    </view>
+                    <connections>
+                        <outlet property="admirerCV" destination="ayr-DK-aiu" id="2vE-L8-b7Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XnU-aI-hGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6902" y="-891"/>
+        </scene>
+    </scenes>
+
+</document>

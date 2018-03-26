@@ -8,6 +8,7 @@ import Firebase
 import UIKit
 
 
+// Auth Delegate
 @objc protocol AuthUserServiceDelegate: class {
     //create user delegate protocols
     @objc optional func didFailCreatingUser(_ userService: AuthUserService, error: Error)
@@ -23,15 +24,18 @@ import UIKit
 }
 
 
+// AuthService
 class AuthUserService: NSObject {
 	static let manager = AuthUserService()
-    weak var delegate: AuthUserServiceDelegate?
+	weak var delegate: AuthUserServiceDelegate?
 
-    public static func getCurrentUser() -> User?{
-			return Auth.auth().currentUser
-    }
-	
-	public func createUser(name: String, email: String, password: String, profileImage: UIImage?) {
+	//get current User
+	static func getCurrentUser() -> User?{
+		return Auth.auth().currentUser
+	}
+
+	//Create User in Auth
+	func createUser(name: String, email: String, password: String, profileImage: UIImage) {
 		Auth.auth().createUser(withEmail: email, password: password){(user, error) in
 			if let error = error {self.delegate?.didFailCreatingUser?(self, error: error)}
 			else if let user = user {
@@ -41,15 +45,15 @@ class AuthUserService: NSObject {
 					if let error = error {print("changeRequest error: \(error)")}
 					else {
 						print("changeRequest was successful for username: \(name)")
-						DBService.manager.addLover(name: name, email: email, profileImage: profileImage ?? #imageLiteral(resourceName: "user2"))
+						DBService.manager.addLover(name: name, email: email, profileImage: profileImage)
 					}
-					self.delegate?.didCreateUser?(self, user: user)
+//					self.delegate?.didCreateUser?(self, user: user)
 				})
 			}
 		}
 	}
 
-	public func changeAuthProfilePhoto(urlString: String) {
+	public func updatePhoto(urlString: String) {
 		let currentUser  = Auth.auth().currentUser!
 		let changeRequest = currentUser.createProfileChangeRequest()
 		changeRequest.photoURL = URL(string: urlString)
@@ -60,7 +64,8 @@ class AuthUserService: NSObject {
 			}
 		})
 	}
-	public func changeAuthProfileName(name: String) {
+	
+	public func updateName(name: String) {
 		let currentUser  = Auth.auth().currentUser!
 		let changeRequest = currentUser.createProfileChangeRequest()
 		changeRequest.displayName = name
@@ -72,23 +77,31 @@ class AuthUserService: NSObject {
 		})
 	}
 
-    public func signOut() {
-        do{
-            try Auth.auth().signOut()
-            delegate?.didSignOut?(self) //inform delegate of successful sign out
-        } catch {
-            delegate?.didFailSigningOut!(self, error: error) //inform delegate of error
-        }
-    }
+	//Sign Out
+	public func signOut() {
+		do{
+			try Auth.auth().signOut()
+			delegate?.didSignOut?(self)
+		} catch {
+			delegate?.didFailSigningOut!(self, error: error)
+		}
+	}
 
+	//Sign In
+	public func signIn(email: String, password: String) {
+		Auth.auth().signIn(withEmail: email, password: password) {(user, error) in
+			if let error = error {
+				print(error)
 
-    public func signIn(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) {(user, error) in
-            if let error = error { self.delegate?.didFailSignIn?(self, error: error) } //inform delegate of signin error
-						else if let user = user { self.delegate?.didSignIn?(self, user: user) } //inform delegate of signin success
-        }
-    }
-    
-    
+			}
+			else if let user = user {
+				let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainController")
+				if let window = UIApplication.shared.delegate?.window {
+					window?.rootViewController = mainVC
+				}
+			}
+		}
+	}
+
 }
 

@@ -18,7 +18,7 @@ class WelcomeLogoSlide: UIView {
 	lazy var details: UITextView = {
 		let tv = UITextView()
 		tv.text = "Create meaningful connections through food."
-		tv.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
+		tv.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
 		tv.textColor = UIColor.white
 		tv.textAlignment = .center
 		tv.backgroundColor = .clear
@@ -47,7 +47,7 @@ class WelcomeLogoSlide: UIView {
 			picture.centerXAnchor.constraint(equalTo: centerXAnchor),
 			picture.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -70)
 			])
-		//Details Label
+		// Details
 		addSubview(details)
 		details.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
