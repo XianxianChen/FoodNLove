@@ -34,18 +34,6 @@ class WelcomeVC: UIViewController, UIScrollViewDelegate {
 		Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(changeSlide), userInfo: nil, repeats: true)
 	}
 
-
-	@objc func changeSlide() {
-		slideIndex += 1
-		if slideIndex < self.welcomeSlides.count {
-			welcomeSlideScrollView.scrollRectToVisible(welcomeSlides[slideIndex].frame, animated: true)
-		}
-		else {
-			slideIndex = 0
-			welcomeSlideScrollView.scrollRectToVisible(welcomeSlides[slideIndex].frame, animated: true)
-		}
-	}
-
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(false)
 		setupAndPlayVideoBackground()
@@ -58,11 +46,24 @@ class WelcomeVC: UIViewController, UIScrollViewDelegate {
 	}
 
 
+	@objc func changeSlide() {
+		slideIndex += 1
+		if slideIndex < self.welcomeSlides.count {
+			welcomeSlideScrollView.scrollRectToVisible(welcomeSlides[slideIndex].frame, animated: true)
+		}
+		else {
+			slideIndex = 0
+			welcomeSlideScrollView.scrollRectToVisible(welcomeSlides[slideIndex].frame, animated: true)
+		}
+	}
+
+
+
 	// MARK: Helper Methods
 	///Slides
 	func createSlides() -> [UIView] {
 		let slide1 = WelcomeLogoSlide()
-		let slide2 = WelcomeSlide(title: "Bond over food", details: "Start with a simple meal and build from there. Food has played an integral part in shaping culture and communication", picture: #imageLiteral(resourceName: "bg_coffee"))
+		let slide2 = WelcomeSlide(title: "Bond over food", details: "Start with a simple meal and build from there.", picture: #imageLiteral(resourceName: "bg_coffee"))
 		let slide3 = WelcomeSlide(title: "Companionship", details: "Why eat alone, when you can also meet your soulmate", picture: #imageLiteral(resourceName: "bg_plandate"))
 		let slide4 = WelcomeSlide(title: "Plan date in app", details: "Spend quality time exploring each other...", picture: #imageLiteral(resourceName: "bg_love1"))
 		return [slide1, slide2, slide3, slide4]

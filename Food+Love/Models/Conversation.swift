@@ -10,11 +10,6 @@ import Firebase
 
 class Conversation: NSObject {
 
-//	PartnerID
-//	PartnerPhoto
-//	lastMessage
-//	timestamp
-
 	var fromId: String?
 	var text: String?
 	var timeStamp: NSNumber?
@@ -24,7 +19,7 @@ class Conversation: NSObject {
 	var imageHeight: NSNumber?
 	var videoUrl: String?
 
-	func chatPartnerId() -> String {
+	func partnerId() -> String {
 		return (fromId == Auth.auth().currentUser?.uid ? toId : fromId)!
 	}
 

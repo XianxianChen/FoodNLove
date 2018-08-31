@@ -7,18 +7,17 @@
 
 import UIKit
 import Firebase
-import VegaScrollFlowLayout
-
+import Toucan
 
 class DiscoverVC: UIViewController {
 
 
 	// Outlets
     @IBOutlet weak var discoverCV: UICollectionView!
-    
 
 	//Properties
 	let cellSpacing: CGFloat = 0.6
+    var currentLover: Lover!
 	var lovers = [Lover](){
 		didSet{
 			discoverCV.reloadData()
@@ -36,32 +35,56 @@ class DiscoverVC: UIViewController {
 				window?.rootViewController = welcomeVC
 			}
 		}
+
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadCurrentUser()
+			setupNavBar()
         loadLovers()
-
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
 		setUpDiscoverCV()
 	}
-
+ 
+    func loadCurrentUser() {
+        DBService.manager.getCurrentLover { (onlineLover, error) in
+            if let lover = onlineLover {
+                self.currentLover = lover
+            }
+            if let error = error {
+                print("loading current user error: \(error)")
+            }
+        }
+    }
 
 	private func setUpDiscoverCV() {
 		discoverCV.dataSource = self
 		discoverCV.delegate = self
-        discoverCV.register(UINib(nibName: "DiscoverUserCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "DiscoverCell")
+        discoverCV.register(UINib(nibName: "NewDiscoverCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "NewDiscoverCell")
 
 
         let layout = discoverCV.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.sectionInset = UIEdgeInsetsMake(0, 13, 0, 13)
-        layout.minimumInteritemSpacing = 1
-        layout.itemSize = CGSize(width: discoverCV.frame.size.width * 0.5, height: discoverCV.frame.size.height * 0.45)
+        let padding: CGFloat = 5.0
+        layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+        layout.minimumInteritemSpacing = padding
+        layout.minimumLineSpacing = padding
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - (padding * 3)) / 2,
+                                 height: UIScreen.main.bounds.height * 0.6)
 	}
 
 
 	private func loadLovers() {
 		getAllLoversExceptCurrent()
 	}
+
+	private func setupNavBar(){
+		let image : UIImage = #imageLiteral(resourceName: "Logo3")
+		let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+		imageView.contentMode = .scaleAspectFit
+		imageView.image = image
+		self.navigationItem.titleView = imageView
+	}
+
 
 
 
@@ -70,7 +93,8 @@ class DiscoverVC: UIViewController {
 			if let dict = snapshot.value as? [String: AnyObject]{
 				let lover = Lover(dictionary: dict)
 				lover.id = snapshot.key
-				if lover.id != Auth.auth().currentUser?.uid {
+				if lover.id != Auth.auth().currentUser?.uid && self.currentLover.genderPreference != lover.genderPreference {
+                    
 					self.lovers.append(lover)
 				}
 			}
@@ -86,20 +110,34 @@ extension DiscoverVC: UICollectionViewDataSource {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return lovers.isEmpty ? 0 : lovers.count
+		return lovers.count
 	}
 
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = discoverCV.dequeueReusableCell(withReuseIdentifier: "DiscoverCell", for: indexPath) as! DiscoverUserCollectionViewCell
-		let lover = lovers[indexPath.row]
-		if let image = lover.profileImageUrl {
-			cell.userImageView.loadImageUsingCacheWithUrlString(image)
-		} else {
-			cell.userImageView.image = #imageLiteral(resourceName: "user2")
-		}
-        cell.nameLabel.text = lover.name
+    let cell = discoverCV.dequeueReusableCell(withReuseIdentifier: "NewDiscoverCell", for: indexPath) as! NewDiscoverCollectionViewCell
+        let lover = lovers[indexPath.row]
+        cell.layoutIfNeeded()
+        cell.userImageView.image = nil
         cell.layoutSubviews()
+        cell.userNameLabel.text = lover.name
+        cell.favoriteFoodLabel.text = lover.favDish ?? "N/A"
+        
+        let currentLoverFoods = [currentLover.firstFoodPrefer, currentLover.secondFoodPrefer, currentLover.thirdFoodPrefer]
+        let loverFoods = [lover.firstFoodPrefer, lover.secondFoodPrefer, lover.thirdFoodPrefer]
+        var common = [String]()
+        for option in currentLoverFoods where option != nil {
+            if loverFoods.contains(where: {$0 == option}) {
+                common.append(option!)
+            }
+        }
+        
+        cell.favoriteCuisinesLabel.text = common.joined(separator: ", ")
+        if let image = lover.profileImageUrl {
+            cell.userImageView.loadImageUsingCacheWithUrlString(image)
+        } else {
+            cell.userImageView.image = #imageLiteral(resourceName: "profile")
+        }
 		return cell
 	}
 }
@@ -117,7 +155,7 @@ extension DiscoverVC: UICollectionViewDelegateFlowLayout {
 		//perform segue to profile here
 		 let selectedLover = lovers[indexPath.row]
 		let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-		let profileVC = storyboard.instantiateViewController(withIdentifier: "OtherUserProfileVC") as! OtherUserProfileVC
+		let profileVC = storyboard.instantiateViewController(withIdentifier: "UserProfileVC") as! UserProfileTableViewController
         profileVC.lover = selectedLover
 		self.navigationController?.pushViewController(profileVC, animated: true)
 	}

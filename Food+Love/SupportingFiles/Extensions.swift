@@ -8,6 +8,22 @@ import UIKit
 import ImageIO
 
 
+class RoundedImageView: UIImageView {
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		let radius: CGFloat = self.bounds.size.width / 2.0
+		self.layer.cornerRadius = radius
+		self.clipsToBounds = true
+	}
+}
+
+extension Date {
+    var age: Int {
+        return Calendar.current.dateComponents([.year], from: self, to: Date()).year!
+    }
+}
+
+
 // Dictionary
 extension Dictionary {
 	mutating func merge(with dictionary: Dictionary) {
@@ -81,7 +97,10 @@ extension UITextField {
 extension UIImageView {
 	//Image Cache
 	func loadImageUsingCacheWithUrlString(_ urlString: String) {
-		self.image = nil
+//        DispatchQueue.main.async {
+        self.image = nil
+//        }
+     
 		//check cache for image first
 		if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
 			self.image = cachedImage
@@ -91,7 +110,7 @@ extension UIImageView {
 		guard let url = URL(string: urlString) else {return}
 		URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
 			//download hit an error so lets return out
-			if error != nil {
+			if let error = error {
 				print(error)
 				return
 			}
@@ -106,8 +125,10 @@ extension UIImageView {
 }
 
 
+
 // Extend IMAGE
 extension UIImage {
+
 	public class func gifImageWithData(_ data: Data) -> UIImage? {
 		guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
 			print("image doesn't exist")
@@ -118,12 +139,12 @@ extension UIImage {
 	}
 
 	public class func gifImageWithURL(_ gifUrl:String) -> UIImage? {
-		guard let bundleURL:URL? = URL(string: gifUrl)
+		guard let bundleURL:URL = URL(string: gifUrl)
 			else {
 				print("image named \"\(gifUrl)\" doesn't exist")
 				return nil
 		}
-		guard let imageData = try? Data(contentsOf: bundleURL!) else {
+		guard let imageData = try? Data(contentsOf: bundleURL) else {
 			print("image named \"\(gifUrl)\" into NSData")
 			return nil
 		}

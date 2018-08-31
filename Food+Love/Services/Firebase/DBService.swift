@@ -16,87 +16,61 @@ class DBService {
 	private init(){
 		dbRef = Database.database().reference()
 		loversRef = dbRef.child("lovers")
+		conversationsRef = dbRef.child("conversations")
 		messagesRef = dbRef.child("messages")
-		loverMessagesRef = dbRef.child("loverMessages")
 		categoriesRef = dbRef.child("categories")
 	}
-
 
 	// MARK: Properties
 	private var dbRef: DatabaseReference!
 	private var loversRef: DatabaseReference!
+	private var conversationsRef: DatabaseReference!
 	private var messagesRef: DatabaseReference!
-	private var loverMessagesRef: DatabaseReference!
 	private var categoriesRef: DatabaseReference!
-
 
 	// MARK: Helper Methods
 	public func getDBRef()-> DatabaseReference { return dbRef }
 	public func getLoversRef()-> DatabaseReference { return loversRef }
+	public func getConversationsRef()-> DatabaseReference { return conversationsRef }
 	public func getMessagesRef()-> DatabaseReference { return messagesRef }
-	public func getLoverMessagesRef()-> DatabaseReference { return loverMessagesRef }
 	public func getCategoriesRef()-> DatabaseReference {return categoriesRef}
 
-	
 
 	// Format date
-	public func formatDate(with date: Date) -> String {
+	public func formatDateforMessages(with date: Date) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "MMM d, YYYY h:mm a"
 		return dateFormatter.string(from: date)
 	}
 
-	// Add User main
-	public func addLover(name: String, email: String, profileImage: UIImage) {
-		let lover = DBService.manager.getLoversRef().child((Auth.auth().currentUser?.uid)!)
-		lover.setValue(["name"     : name,
-									 "email"		: email])
-		{ (error, dbRef) in
-			if let error = error { print("addUser error: \(error.localizedDescription)")}
-			else { print("user successfully added to database reference: \(dbRef)")}
-		}
-		StorageService.manager.storeUserImage(image: profileImage)
+	public func formatDateforDOB(with date: Date) -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "MMM d, YYYY"
+		return dateFormatter.string(from: date)
 	}
 
-	// Add Details
-	public func addLoverDetails(dateOfBirth: String?,
-															zipcode: String?,
-															city: String?,
-															bio: String?,
-															gender: String?,
-															genderPreference: String?,
-															smoke: String?,
-															drink: String?,
-															drugs: String?) {
-		let lover = DBService.manager.getLoversRef().child((Auth.auth().currentUser?.uid)!)
-		lover.setValue(["dateOfBirth": dateOfBirth,
-									 "zipcode": zipcode,
-									 "city": city,
-									 "bio": bio,
-									 "gender" : gender,
-									 "genderPreference"	: genderPreference,
-									 "smoke" : smoke,
-									 "drink": drink,
-									 "drugs" : drugs])
-		{ (error, dbRef) in
-			if let error = error { print("addUser error: \(error.localizedDescription)")}
-			else { print("user successfully added to database reference: \(dbRef)")}
-		}
-	}
-
-
+/*
 
 	// Get
-	func getCurrentLover() -> Lover {
-		let uid = Auth.auth().currentUser?.uid
-		var lover: Lover!
-		Database.database().reference().child("lovers").child(uid!).observe(.value, with: { (snapshot) in
-			if let userInfoDict = snapshot.value as? [String : AnyObject] {
-				lover = Lover(dictionary: userInfoDict)
-			}
-		}, withCancel: nil)
-		return lover
-	}
+    func getCurrentLover(completionHandler: @escaping (Lover?, Error?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("No current user exist")
+           completionHandler(nil, AppError.noUserExist)
+            return
+        }
+        Database.database().reference().child("lovers").child(uid).observe(.value) { (snapshot) in
+            var lover: Lover?
+            
+         //   let snap = snapshot.value as! DataSnapshot
+            if let infoDict = snapshot.value as? [String: AnyObject] {
+                lover = Lover(dictionary: infoDict)
+                completionHandler(lover, nil)
+            
+            }
+        }
+
+        }
+		
 
 
 //	func getLover(uid: String) -> Lover {
@@ -113,7 +87,7 @@ class DBService {
 //		}
 //	}
 
-	func getMultipleLovers(uids: [String]) -> [Lover] {
+    func getMultipleLovers(uids: [String], completionHandler: @escaping ([Lover]) -> Void) {
 		var lovers = [Lover]()
 		for uid in uids {
 			Database.database().reference().child("lovers").child(uid).observe(.value, with: { (snapshot) in
@@ -123,7 +97,7 @@ class DBService {
 				}
 			}, withCancel: nil)
 		}
-		return lovers
+        completionHandler(lovers)
 	}
 
 	func getAllLovers() -> [Lover] {
@@ -177,19 +151,19 @@ class DBService {
 		}
 	}
 
-	func getAllLoversExceptCurrent() -> [Lover]{
-		var lovers = [Lover]()
-		Database.database().reference().child("lovers").observe(.childAdded, with: { (snapshot) in
-			if let dict = snapshot.value as? [String: AnyObject]{
-				let lover = Lover(dictionary: dict)
-				lover.id = snapshot.key
-				if lover.id != Auth.auth().currentUser?.uid {
-					lovers.append(lover)
-				}
-			}
-		}, withCancel: nil)
-		return lovers
-	}
+//    func getAllLoversExceptCurrent() -> [Lover]{
+//        var lovers = [Lover]()
+//        Database.database().reference().child("lovers").observe(.childAdded, with: { (snapshot) in
+//            if let dict = snapshot.value as? [String: AnyObject]{
+//                let lover = Lover(dictionary: dict)
+//                lover.id = snapshot.key
+//                if lover.id != Auth.auth().currentUser?.uid {
+//                    lovers.append(lover)
+//                }
+//            }
+//        }, withCancel: nil)
+//        return lovers
+//    }
 
 //	func getNewMessages() {
 //		guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -235,24 +209,8 @@ class DBService {
 //			}
 //		}, withCancel: nil)
 //	}
-	
 
-	public func updateName(name: String) {
-		guard let currentUser = AuthUserService.getCurrentUser() else {print("No user authenticated"); return}
-		DBService.manager.getLoversRef().child(currentUser.uid).updateChildValues(["name": name])
-	}
-
-	public func updateEmail(email: String) {
-		guard let currentUser = AuthUserService.getCurrentUser() else {print("No user authenticated"); return}
-		DBService.manager.getLoversRef().child(currentUser.uid).updateChildValues(["email": email])
-	}
-
-	public func updatePhoto(profileImageUrl: String) {
-		guard let currentUser = AuthUserService.getCurrentUser() else {print("No user authenticated"); return}
-		DBService.manager.getLoversRef().child(currentUser.uid).updateChildValues(["profileImageUrl": profileImageUrl])
-	}
-
-
+     */
+    
 }
-
 

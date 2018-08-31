@@ -14,60 +14,40 @@ class MatchesVC: UIViewController {
 	@IBOutlet weak var matchesCollectionView: UICollectionView!
 	@IBOutlet weak var conversationsTableView: UITableView!
 
-
 	// MARK: Properties
 	var timer: Timer!
 	var matches = [Lover]() {
 		didSet {
-			DispatchQueue.main.async { self.matchesCollectionView.reloadData() }
+			DispatchQueue.main.async {
+				self.matchesCollectionView.reloadData()
+			}
 		}
 	}
-
-	var conversations = [Message]()
-	{
+	var conversations = [Message](){
 		didSet {
 			DispatchQueue.main.async {
 				self.conversationsTableView.reloadData()
 			}
 		}
 	}
+	var conversationsDict = [String: Message]()
 
-	var conversationsDict = [String: Message](){
-		didSet {
-			DispatchQueue.main.async {
-//				print()
-//				print(self.conversationsDict)
-//				print()
-//				self.conversationsTableView.reloadData()
-//				for conversation in self.conversationsDict {
-//					let partnerId = conversation.chatPartnerId()
-//					DBService.manager.retrieveLover(loverId: partnerId, completionHandler: { (onlineLover) in
-//						print(onlineLover)
-//						print(onlineLover?.name)
-//					})
-//				}
-
-//				for conversation in self.conversations {
-//					let partnerId = conversation.chatPartnerId()
-//					DBService.manager.retrieveLover(loverId: partnerId, completionHandler: { (onlineLover) in
-//						print(onlineLover)
-//						print(onlineLover?.name)
-//					})
-//				}
-
-			}
-		}
-	}
-
+    var currentLover: Lover! {
+        didSet {
+           // loadMatches()
+            getAllMatchedLover()
+        }
+    }
 
 	// MARK: View Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableview()
 		setupCollectionView()
-		getAllLoversExceptCurrent()
+		//getAllLoversExceptCurrent()
+        loadCurrentUserProfile()
 		getNewMessages()
-		//		getLover()
+		setupNavBar()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -75,18 +55,24 @@ class MatchesVC: UIViewController {
 	}
 
 	//Setup Tableview
-	func setupTableview(){
+	private func setupTableview(){
 		conversationsTableView.dataSource = self
 		conversationsTableView.delegate = self
 		conversationsTableView.allowsMultipleSelectionDuringEditing = true
 	}
 
-	func setupCollectionView(){
+	private func setupCollectionView(){
 		matchesCollectionView.dataSource = self
 		matchesCollectionView.delegate = self
 	}
 
-
+	private func setupNavBar(){
+		let image : UIImage = #imageLiteral(resourceName: "Logo3")
+		let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+		imageView.contentMode = .scaleAspectFit
+		imageView.image = image
+		self.navigationItem.titleView = imageView
+	}
 
 
 
@@ -106,16 +92,6 @@ class MatchesVC: UIViewController {
 	}
 
 
-	func getCurrentUser() -> Lover {
-		let uid = Auth.auth().currentUser?.uid
-		var lover: Lover!
-		DBService.manager.getLoversRef().child(uid!).observe(.value, with: { (snapshot) in
-			if let userInfoDict = snapshot.value as? [String : AnyObject] {
-				lover = Lover(dictionary: userInfoDict)
-			}
-		}, withCancel: nil)
-		return lover
-	}
 
 	func getLover(uid: String) -> Lover {
 		var lover: Lover!
@@ -136,23 +112,81 @@ class MatchesVC: UIViewController {
 		getNewMessages()
 	}
 
-	func getAllLoversExceptCurrent() {
-		Database.database().reference().child("lovers").observe(.childAdded, with: { (snapshot) in
-			if let dict = snapshot.value as? [String: AnyObject]{
-				let lover = Lover(dictionary: dict)
-				lover.id = snapshot.key
-				if lover.id != Auth.auth().currentUser?.uid {
-					self.matches.append(lover)
-				}
-			}
-		}, withCancel: nil)
-	}
 
+
+    func loadCurrentUserProfile() {
+        DBService.manager.getCurrentLover { (onlineLover, error) in
+            if let lover = onlineLover {
+                self.currentLover = lover
+            }
+            if let error = error {
+                print("loading current user error: \(error)")
+            }
+        }
+    }
+    
+//    private func loadMatches() {
+//        guard let followers = self.currentLover.followers, let following = self.currentLover.following else {return}
+//        let followerUids = Array(followers.values)
+//        let followingUids = Array(following.values)
+//        var matchedUids = [String]()
+//        for uid in followerUids {
+//            if followingUids.contains(uid) {
+//                matchedUids.append(uid)
+//            }
+//        }
+//
+//        for uid in matchedUids {
+//      //Database.database().reference().child("lovers").child(uid).queryOrderedByKey()
+//            Database.database().reference().child("lovers").child(uid)
+//            .observe(.value, with: { (snapshot) in
+//                print("~~~~~~~~~~~~~~~")
+//                print("uid is : \(uid)")
+//                print("snapshot is : \(snapshot)")
+//                if let dict = snapshot.value as? [String: AnyObject]{
+//                    let lover = Lover(dictionary: dict)
+//                  let index = self.matches.index(where: {$0.id == lover.id})
+//                    if index == nil {
+//                    self.matches.append(lover)
+//                    }
+//                } else {
+//                    print("error getting snapshot value: match snapsho have is nil")
+//                }
+//            })
+//        }
+//    }
+    
+    func getAllMatchedLover() {
+        guard let followers = self.currentLover.followers, let following = self.currentLover.following else {return}
+        let followerUids = Array(followers.values)
+        let followingUids = Array(following.values)
+        var matchedUids = [String]()
+        for uid in followerUids {
+            if followingUids.contains(uid) {
+                matchedUids.append(uid)
+            }
+        }
+        
+        Database.database().reference().child("lovers").observe(.value) { (snapshot) in
+             var onlineMatches = [Lover]()
+            for child in snapshot.children {
+                let childDataSnapshot = child as! DataSnapshot
+                let key = childDataSnapshot.key
+                if matchedUids.contains(key) {
+                if let dict = childDataSnapshot.value as? [String: AnyObject] {
+                    let lover = Lover(dictionary: dict)
+                    onlineMatches.append(lover)
+                }
+                }
+            }
+            self.matches = onlineMatches
+        }
+    }
 
 	// Matches
 	func getNewMessages() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
-		let userMessageRef = DBService.manager.getLoverMessagesRef().child(uid)
+		let userMessageRef = DBService.manager.getConversationsRef().child(uid)
 
 		// Observe for New Messages
 		userMessageRef.observe(.childAdded, with: { (snapshot) in
@@ -163,7 +197,7 @@ class MatchesVC: UIViewController {
 				messagesReference.observeSingleEvent(of:.value, with: { (snapshot) in
 					if let dict = snapshot.value as? [String: AnyObject] {
 						let message = Message(dictionary: dict)
-						let chatPartnerID = message.chatPartnerId()
+						let chatPartnerID = message.partnerId()
 						self.conversationsDict[chatPartnerID] = message
 						self.conversations = Array(self.conversationsDict.values)
 						self.conversations =  self.conversations.sorted(by: { (message1, message2) -> Bool in
@@ -188,7 +222,7 @@ class MatchesVC: UIViewController {
 		messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
 			if let dictionary = snapshot.value as? [String: AnyObject] {
 				let message = Message(dictionary: dictionary)
-				let chatPartnerId = message.chatPartnerId()
+				let chatPartnerId = message.partnerId()
 				self.conversationsDict[chatPartnerId] = message
 				self.attemptReloadOfTable()
 			}
@@ -227,9 +261,13 @@ extension MatchesVC: UICollectionViewDataSource {
 	//setup for each cell
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		if matches.isEmpty {return collectionView.dequeueReusableCell(withReuseIdentifier: "MatchesCell", for: indexPath) as! MatchesCell}
+        
 		let match = matches[indexPath.row]
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MatchesCell", for: indexPath) as! MatchesCell
-		cell.configureCell(match: match)
+       // cell.layoutIfNeeded()
+        cell.layoutIfNeeded()
+        cell.matchImageView.image = nil
+        cell.configureCell(match: match)
 		return cell
 	}
 }
@@ -331,7 +369,7 @@ extension MatchesVC: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		let conversations = self.conversations[indexPath.row]
-		DBService.manager.getLoverMessagesRef().child(uid).child(conversations.chatPartnerId()).removeValue { (error, ref) in
+		DBService.manager.getConversationsRef().child(uid).child(conversations.partnerId()).removeValue { (error, ref) in
 
 			//		Database.database().reference().child("user-messages").child(uid).child(conversations.chatPartnerId()).removeValue { (error, ref) in
 			if error != nil { print(error!) ; return}
@@ -349,13 +387,37 @@ extension MatchesVC {
 		//Matches
 		if sender is UICollectionViewCell {
 			guard let indexPath1 = matchesCollectionView.indexPath(for: sender as! UICollectionViewCell) else {return}
-			chatVC.loverId = matches[indexPath1.row].id
+			chatVC.partner = matches[indexPath1.row]
+			chatVC.partnerId = matches[indexPath1.row].id
 		}
 		//Conversations
 		if sender is UITableViewCell {
 			guard let indexPath2 = conversationsTableView.indexPath(for: sender as! UITableViewCell) else {return}
-			let selectedLover: Lover?
-			chatVC.loverId =	conversations[indexPath2.row].chatPartnerId()
+			var selectedLover: Lover?
+			var selectedLoverImage: UIImage?
+			let conversation = conversations[indexPath2.row]
+
+			//TODO: get partner - send partner info and uiimage
+			chatVC.partnerId = conversations[indexPath2.row].partnerId()
+
+			//get lover
+			DBService.manager.retrieveLover(loverId: chatVC.partnerId, completionHandler: { (onlineLover) in
+					selectedLover = onlineLover
+			})
+			if let selectedLover = selectedLover {
+				//get image
+				guard let imageUrl = selectedLover.profileImageUrl else {return}
+				ImageService.manager.getImage(from: imageUrl, completionHandler: { (onlineImage) in
+					selectedLoverImage = onlineImage
+				}, errorHandler: { (error) in
+					print(error)
+					})
+				if let image = selectedLoverImage {
+					chatVC.partnerImage = image
+					chatVC.partner = selectedLover
+				}
+			}
+			conversationsTableView.deselectRow(at: indexPath2, animated: true)
 		}
 	}
 }
